@@ -1,6 +1,15 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import BaseModel, MySQLDsn
 
+from fastapi.security import OAuth2PasswordBearer
+
+from pathlib import Path
+
+CORE_DIR = Path("core")
+KEYS_DIR = Path("keys")
+PRIVATE_KEY_PATH = CORE_DIR / KEYS_DIR / "private.pem"
+PUBLIC_KEY_PATH = CORE_DIR / KEYS_DIR / "public.pem"
+
 
 class RunConfig(BaseModel):
     host: str = "127.0.0.1"
@@ -23,6 +32,17 @@ class DatabaseConfig(BaseModel):
     }
 
 
+class JwtConfig(BaseModel):
+    private: str = PRIVATE_KEY_PATH.read_text()
+    public: str = PUBLIC_KEY_PATH.read_text()
+    algorithm: str = "RS256"
+
+
+class AuthConfig(BaseModel):
+    scheme: OAuth2PasswordBearer = OAuth2PasswordBearer(tokenUrl="token")
+    token_type: str = "bearer"
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=(".env.template", ".env"),
@@ -33,6 +53,8 @@ class Settings(BaseSettings):
 
     run: RunConfig = RunConfig()
     db: DatabaseConfig
+    jwt: JwtConfig = JwtConfig()
+    auth: AuthConfig = AuthConfig()
 
 
 settings = Settings()
