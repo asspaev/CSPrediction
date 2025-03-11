@@ -21,6 +21,7 @@ class User(IntIdPkMixin, Base):
     password_hash: Mapped[str] = mapped_column(String(32), nullable=False)
     created_at: Mapped[TIMESTAMP] = mapped_column(TIMESTAMP)
     credits: Mapped[float] = mapped_column(Float, nullable=False, default=0)
+    permission: Mapped[str] = mapped_column(String(64), nullable=False, default="user")
     
     predictions = relationship("Prediction", back_populates="user")
     deposits = relationship("Deposit", back_populates="user")
