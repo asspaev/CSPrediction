@@ -42,6 +42,18 @@ class AuthConfig(BaseModel):
     scheme: OAuth2PasswordBearer = OAuth2PasswordBearer(tokenUrl="token")
     token_type: str = "bearer"
 
+    class Config:
+        arbitrary_types_allowed = True
+
+
+class ApiV1Prefix(BaseModel):
+    prefix: str = "/v1"
+
+
+class ApiPrefix(BaseModel):
+    prefix: str = "/api"
+    v1: ApiV1Prefix = ApiV1Prefix()
+
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
@@ -55,6 +67,7 @@ class Settings(BaseSettings):
     db: DatabaseConfig
     jwt: JwtConfig = JwtConfig()
     auth: AuthConfig = AuthConfig()
+    api: ApiPrefix = ApiPrefix()
 
 
 settings = Settings()
