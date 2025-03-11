@@ -38,16 +38,9 @@ class JwtConfig(BaseModel):
     algorithm: str = "RS256"
 
 
-class AuthConfig(BaseModel):
-    scheme: OAuth2PasswordBearer = OAuth2PasswordBearer(tokenUrl="token")
-    token_type: str = "bearer"
-
-    class Config:
-        arbitrary_types_allowed = True
-
-
 class ApiV1Prefix(BaseModel):
     prefix: str = "/v1"
+    menu: str = "/menu"
 
 
 class ApiPrefix(BaseModel):
@@ -66,7 +59,6 @@ class Settings(BaseSettings):
     run: RunConfig = RunConfig()
     db: DatabaseConfig
     jwt: JwtConfig = JwtConfig()
-    auth: AuthConfig = AuthConfig()
     api: ApiPrefix = ApiPrefix()
 
 
