@@ -10,23 +10,23 @@ from typing import Dict
 
 from core import settings
 from models import db_helper
-from schemas import UserRegister
+from schemas import UserLogin
 from utils import create_access_token
-from servises.user import create_user
+from servises.user import auth_user
 
 
 router = APIRouter()
 
 
-@router.post("/register")
-async def register(
-    data: UserRegister,
+@router.post("/login")
+async def login(
+    data: UserLogin,
     response: Response,
     session: AsyncSession = Depends(db_helper.session_getter),
 ) -> Dict[str, str]:
-    user = await create_user(
+    user = await auth_user(
         session=session,
-        user_register=data,
+        user_login=data,
     )
     access_token = await create_access_token(
         data={"sub": data.email},
@@ -40,4 +40,4 @@ async def register(
         samesite="Strict",  # Защита от CSRF
         secure=True  # Только HTTPS
     )
-    return {"message": "Вы удачно зарегистрировались!"}
+    return {"message": "Вы удачно авторизовались!"}
