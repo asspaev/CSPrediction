@@ -1,14 +1,33 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import BaseModel, MySQLDsn
 
+import pandas as pd
+from pandas import DataFrame
+
 from fastapi.security import OAuth2PasswordBearer
 
+import json
 from pathlib import Path
 
 CORE_DIR = Path("core")
 KEYS_DIR = Path("keys")
 PRIVATE_KEY_PATH = CORE_DIR / KEYS_DIR / "private.pem"
 PUBLIC_KEY_PATH = CORE_DIR / KEYS_DIR / "public.pem"
+PATH_DATA = Path("data")
+
+with open(PATH_DATA / "headers.json", "r", encoding="utf-8") as f:
+    headers = json.load(f)
+    cookies = {c.split('=')[0].strip(): c.split('=', 1)[1].strip() for c in headers["Cookie"].split('; ')}
+
+class PredicatorConfig(BaseModel):
+    model_config = {
+        "arbitrary_types_allowed": True
+    }
+
+    mean_player: DataFrame = pd.read_csv(PATH_DATA / "mean_player.csv")
+    path_dir_models: Path = Path("ml_models")
+    headers: dict = headers
+    cookies: dict = cookies
 
 
 class RunConfig(BaseModel):
@@ -40,7 +59,8 @@ class JwtConfig(BaseModel):
 
 class ApiV1Prefix(BaseModel):
     prefix: str = "/v1"
-    menu: str = "/menu"
+    balance: str = "/balance"
+    models: str = "/models"
 
 
 class ApiPrefix(BaseModel):
@@ -60,6 +80,7 @@ class Settings(BaseSettings):
     db: DatabaseConfig
     jwt: JwtConfig = JwtConfig()
     api: ApiPrefix = ApiPrefix()
+    predict: PredicatorConfig = PredicatorConfig()
 
 
 settings = Settings()

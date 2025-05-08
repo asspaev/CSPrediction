@@ -6,7 +6,7 @@ from contextlib import asynccontextmanager
 
 from api import router
 from core import settings
-from models import (
+from sql_models import (
     db_helper,
     Base,
 )

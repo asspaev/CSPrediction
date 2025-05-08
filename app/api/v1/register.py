@@ -9,10 +9,10 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from typing import Dict
 
 from core import settings
-from models import db_helper
+from sql_models import db_helper
 from schemas import UserRegister
 from utils import create_access_token
-from servises.user import create_user
+from cruds.user import create_user
 
 
 router = APIRouter()
