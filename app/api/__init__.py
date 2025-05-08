@@ -5,9 +5,9 @@ from core import settings
 from .v1 import router as v1_router
 
 
-router = APIRouter()
+api_router = APIRouter()
 
-router.include_router(
+api_router.include_router(
     v1_router,
-    prefix=settings.api.v1.prefix,
+    prefix=settings.api.version.prefix,
 )

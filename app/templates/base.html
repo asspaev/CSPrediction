@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="https://unpkg.com/htmx.org@1.9.2"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', path='images/favicon_ai.svg') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/styles.css') }}">
+</head>
+<body>
+{% block body %}
+    
+{% endblock %}
+</body>
+</html>

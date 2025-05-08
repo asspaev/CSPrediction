@@ -18,6 +18,7 @@ async def create_user(
         raise HTTPException(status_code=400, detail="Пользователь с таким email уже существует")
     else:
         user = User(
+            login=user_register.login,
             email=user_register.email,
             password_hash=hash_string(user_register.password),
             created_at=datetime.now(),
@@ -33,7 +34,7 @@ async def auth_user(
         user_login: schemas_user.UserRegister,
 ) -> User:
     user = await session.execute(
-        select(User).filter_by(email=user_login.email)
+        select(User).filter_by(login=user_login.login)
     )
     user = user.scalar()
     if user:
@@ -67,3 +68,16 @@ async def add_credits_by_email(email: str, amount: float, session: AsyncSession)
     # Обновление credits
     user.credits += amount
     await session.commit()
+
+async def is_email_unique(session: AsyncSession, email: str) -> bool:
+    result = await session.execute(
+        select(User).where(User.email == email)
+    )
+    return result.scalar_one_or_none() is None
+
+
+async def is_login_unique(session: AsyncSession, login: str) -> bool:
+    result = await session.execute(
+        select(User).where(User.login == login)
+    )
+    return result.scalar_one_or_none() is None

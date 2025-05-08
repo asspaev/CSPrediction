@@ -61,12 +61,15 @@ class ApiV1Prefix(BaseModel):
     prefix: str = "/v1"
     balance: str = "/balance"
     models: str = "/models"
+    forms: str = "/forms"
 
 
 class ApiPrefix(BaseModel):
     prefix: str = "/api"
-    v1: ApiV1Prefix = ApiV1Prefix()
+    version: ApiV1Prefix = ApiV1Prefix()
 
+class WebConfig(BaseSettings):
+    title: str = "CSPrediction"
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
@@ -81,6 +84,7 @@ class Settings(BaseSettings):
     jwt: JwtConfig = JwtConfig()
     api: ApiPrefix = ApiPrefix()
     predict: PredicatorConfig = PredicatorConfig()
+    web: WebConfig = WebConfig()
 
 
 settings = Settings()

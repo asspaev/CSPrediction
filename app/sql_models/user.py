@@ -17,6 +17,7 @@ from .base import Base
 
 
 class User(IntIdPkMixin, Base):
+    login: Mapped[str] = mapped_column(String(32), nullable=False, unique=True)
     email: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
     password_hash: Mapped[str] = mapped_column(String(64), nullable=False)
     created_at: Mapped[TIMESTAMP] = mapped_column(TIMESTAMP)

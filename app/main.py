@@ -5,7 +5,8 @@ import uvicorn
 
 from contextlib import asynccontextmanager
 
-from api import router
+from api import api_router as api_router
+from views import router as views_router
 from core import settings
 from sql_models import (
     db_helper,
@@ -27,8 +28,12 @@ app = FastAPI(
 )
 
 app.include_router(
-    router,
+    api_router,
     prefix=settings.api.prefix,
+)
+
+app.include_router(
+    views_router,
 )
 
 app.mount("/static", StaticFiles(directory="static"), name="static")

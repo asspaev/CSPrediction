@@ -63,13 +63,13 @@ input[type=number] {
 
 @font-face {
   font-family: "Actay";
-  src: url("fonts/Actay-Regular.otf");
+  src: url("./../fonts/Actay-Regular.otf") format("opentype");
   font-weight: 400;
 }
 
 @font-face {
   font-family: "Actay";
-  src: url("fonts/ActayWide-Bold.otf");
+  src: url("./../fonts/ActayWide-Bold.otf") format("opentype");
   font-weight: 700;
 }
 
@@ -287,6 +287,7 @@ html, body {
 .no-auth-wrapper .text-logo {
   font-weight: 700;
   font-size: 24px;
+  color: var(--color-white);
 }
 
 .no-auth-wrapper .form-holder {
@@ -303,6 +304,25 @@ html, body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.form > * {
+  margin-bottom: 16px;
+}
+.form > *:last-child {
+  margin-bottom: 0;
+}
+
+.form.hide-result-gap > *:nth-last-child(2) {
+  margin-bottom: 0;
+}
+
+#result:empty {
+  display: block;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
 .no-auth-wrapper .form-title {
@@ -382,12 +402,6 @@ html, body {
 .btn-white-stroke:hover {
   background-color: var(--color-white);
   color: var(--color-black-2);
-}
-
-.no-auth-wrapper .text-logo {
-  font-weight: 700;
-  font-size: 18px;
-  color: var(--color-blue);
 }
 
 .header-wrapper {
