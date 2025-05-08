@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.responses import ORJSONResponse
+from fastapi.staticfiles import StaticFiles
 import uvicorn
 
 from contextlib import asynccontextmanager
@@ -29,6 +30,8 @@ app.include_router(
     router,
     prefix=settings.api.prefix,
 )
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 if __name__ == "__main__":
