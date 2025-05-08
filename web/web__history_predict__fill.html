@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>CSPrediction</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/x-icon" href="images/favicon_ai.svg">
+</head>
+<body>
+
+    <div class="header-wrapper">
+        <div class="container">
+            <div class="header-holder">
+                <div class="header-left-wrapper">
+                    <a href="" class="text-logo">
+                        CSPrediction
+                    </a>
+                </div>
+                <div class="header-center-wrapper">
+                    <a href="" class="btn-header-menu">Предсказание</a>
+                    <a href="" class="btn-header-menu active">История предсказания</a>
+                    <a href="" class="btn-header-menu">Пополнить баланс</a>
+                    <a href="" class="btn-header-menu">История транзакций</a>
+                </div>
+                <div class="header-right-wrapper">
+                    <div class="user-holder">
+                        <div class="user-info-holder">
+                            <div class="user-username">Username</div>
+                            <div class="user-status">Пользователь</div>
+                        </div>
+                        <div class="user-avatar">
+                            <img src="images/user_avatar_24px.svg" alt="Аватар пользователя">
+                        </div>
+                    </div>
+                    <a href="" class="balance-holder">
+                        <img src="images/balance_coin_24px.svg" alt="">
+                        <span class="balance-int">11,203</span><span class="balance-float">.02</span>
+                    </a>
+                    <a href="" class="btn-exit">
+                        <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19.875 4.125C19.875 3.50368 19.3713 3 18.75 3H10.875C10.2537 3 9.75 3.50368 9.75 4.125V4.91269C9.75 5.31051 9.90804 5.69205 10.1893 5.97335L15.1553 10.9393C15.7411 11.5251 15.7411 12.4749 15.1553 13.0607L10.1893 18.0267C9.90804 18.308 9.75 18.6895 9.75 19.0873V19.875C9.75 20.4963 10.2537 21 10.875 21H18.75C19.3713 21 19.875 20.4963 19.875 19.875V4.125Z" fill="currentColor"/>
+                            <path d="M9.28401 10.875L7.8295 9.4205C7.39016 8.98116 7.39016 8.26884 7.8295 7.8295C8.26884 7.39017 8.98116 7.39017 9.4205 7.8295L12.7955 11.2045C12.9034 11.3124 12.9847 11.4367 13.0396 11.5694C13.0946 11.702 13.125 11.8475 13.125 12C13.125 12.1525 13.0946 12.298 13.0396 12.4306C12.9847 12.5633 12.9034 12.6876 12.7955 12.7955L9.4205 16.1705C8.98116 16.6098 8.26884 16.6098 7.8295 16.1705C7.39016 15.7312 7.39016 15.0188 7.8295 14.5795L9.28401 13.125H3C2.37868 13.125 1.875 12.6213 1.875 12C1.875 11.3787 2.37868 10.875 3 10.875H9.28401Z" fill="currentColor"/>
+                        </svg>                            
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-wrapper">
+        <div class="container">
+            <div class="page-holder">
+                <div class="table-page-holder">
+                    <div class="page-title">
+                        История предсказаний
+                    </div>
+                    <div class="page-content">
+                        <div class="table-holder">
+                            <div class="row title">
+                                <div class="cell title">
+                                    №
+                                </div>
+                                <div class="cell title">
+                                    Дата предсказания
+                                </div>
+                                <div class="cell title">
+                                    Ссылка на матч
+                                </div>
+                                <div class="cell title">
+                                    Победитель
+                                </div>
+                                <div class="cell title">
+                                    Проигравший
+                                </div>
+                                <div class="cell title">
+                                    Модель
+                                </div>
+                                <div class="cell title">
+                                    Цена предсказания
+                                </div>
+                            </div>
+                            <div class="table-content">
+                                <div class="row">
+                                    <div class="cell">
+                                        7123
+                                    </div>
+                                    <div class="cell">
+                                        21.04.2025 18:23:23
+                                    </div>
+                                    <div class="cell">
+                                        <a href="" class="link-underline">Ссылка</a>
+                                    </div>
+                                    <div class="cell winner">
+                                        Falcon
+                                    </div>
+                                    <div class="cell loser">
+                                        Vitality
+                                    </div>
+                                    <div class="cell">
+                                        CSP LGBM v5.2
+                                    </div>
+                                    <div class="cell">
+                                        <div>
+                                            <span class="balance-int">11,203</span><span class="balance-float">.02</span>
+                                        </div>
+                                        <img src="images/balance_coin_24px.svg">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="cell">
+                                        7123
+                                    </div>
+                                    <div class="cell">
+                                        21.04.2025 18:23:23
+                                    </div>
+                                    <div class="cell">
+                                        <a href="" class="link-underline">Ссылка</a>
+                                    </div>
+                                    <div class="cell winner">
+                                        Falcon
+                                    </div>
+                                    <div class="cell loser">
+                                        Vitality
+                                    </div>
+                                    <div class="cell">
+                                        CSP LGBM v5.2
+                                    </div>
+                                    <div class="cell">
+                                        <div>
+                                            <span class="balance-int">11,203</span><span class="balance-float">.02</span>
+                                        </div>
+                                        <img src="images/balance_coin_24px.svg">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="cell">
+                                        7123
+                                    </div>
+                                    <div class="cell">
+                                        21.04.2025 18:23:23
+                                    </div>
+                                    <div class="cell">
+                                        <a href="" class="link-underline">Ссылка</a>
+                                    </div>
+                                    <div class="cell winner">
+                                        Falcon
+                                    </div>
+                                    <div class="cell loser">
+                                        Vitality
+                                    </div>
+                                    <div class="cell">
+                                        CSP LGBM v5.2
+                                    </div>
+                                    <div class="cell">
+                                        <div>
+                                            <span class="balance-int">11,203</span><span class="balance-float">.02</span>
+                                        </div>
+                                        <img src="images/balance_coin_24px.svg">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="cell">
+                                        7123
+                                    </div>
+                                    <div class="cell">
+                                        21.04.2025 18:23:23
+                                    </div>
+                                    <div class="cell">
+                                        <a href="" class="link-underline">Ссылка</a>
+                                    </div>
+                                    <div class="cell winner">
+                                        Falcon
+                                    </div>
+                                    <div class="cell loser">
+                                        Vitality
+                                    </div>
+                                    <div class="cell">
+                                        CSP LGBM v5.2
+                                    </div>
+                                    <div class="cell">
+                                        <div>
+                                            <span class="balance-int">11,203</span><span class="balance-float">.02</span>
+                                        </div>
+                                        <img src="images/balance_coin_24px.svg">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="cell">
+                                        7123
+                                    </div>
+                                    <div class="cell">
+                                        21.04.2025 18:23:23
+                                    </div>
+                                    <div class="cell">
+                                        <a href="" class="link-underline">Ссылка</a>
+                                    </div>
+                                    <div class="cell winner">
+                                        Falcon
+                                    </div>
+                                    <div class="cell loser">
+                                        Vitality
+                                    </div>
+                                    <div class="cell">
+                                        CSP LGBM v5.2
+                                    </div>
+                                    <div class="cell">
+                                        <div>
+                                            <span class="balance-int">11,203</span><span class="balance-float">.02</span>
+                                        </div>
+                                        <img src="images/balance_coin_24px.svg">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="cell">
+                                        7123
+                                    </div>
+                                    <div class="cell">
+                                        21.04.2025 18:23:23
+                                    </div>
+                                    <div class="cell">
+                                        <a href="" class="link-underline">Ссылка</a>
+                                    </div>
+                                    <div class="cell winner">
+                                        Falcon
+                                    </div>
+                                    <div class="cell loser">
+                                        Vitality
+                                    </div>
+                                    <div class="cell">
+                                        CSP LGBM v5.2
+                                    </div>
+                                    <div class="cell">
+                                        <div>
+                                            <span class="balance-int">11,203</span><span class="balance-float">.02</span>
+                                        </div>
+                                        <img src="images/balance_coin_24px.svg">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="cell">
+                                        7123
+                                    </div>
+                                    <div class="cell">
+                                        21.04.2025 18:23:23
+                                    </div>
+                                    <div class="cell">
+                                        <a href="" class="link-underline">Ссылка</a>
+                                    </div>
+                                    <div class="cell winner">
+                                        Falcon
+                                    </div>
+                                    <div class="cell loser">
+                                        Vitality
+                                    </div>
+                                    <div class="cell">
+                                        CSP LGBM v5.2
+                                    </div>
+                                    <div class="cell">
+                                        <div>
+                                            <span class="balance-int">11,203</span><span class="balance-float">.02</span>
+                                        </div>
+                                        <img src="images/balance_coin_24px.svg">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="cell">
+                                        7123
+                                    </div>
+                                    <div class="cell">
+                                        21.04.2025 18:23:23
+                                    </div>
+                                    <div class="cell">
+                                        <a href="" class="link-underline">Ссылка</a>
+                                    </div>
+                                    <div class="cell winner">
+                                        Falcon
+                                    </div>
+                                    <div class="cell loser">
+                                        Vitality
+                                    </div>
+                                    <div class="cell">
+                                        CSP LGBM v5.2
+                                    </div>
+                                    <div class="cell">
+                                        <div>
+                                            <span class="balance-int">11,203</span><span class="balance-float">.02</span>
+                                        </div>
+                                        <img src="images/balance_coin_24px.svg">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="cell">
+                                        7123
+                                    </div>
+                                    <div class="cell">
+                                        21.04.2025 18:23:23
+                                    </div>
+                                    <div class="cell">
+                                        <a href="" class="link-underline">Ссылка</a>
+                                    </div>
+                                    <div class="cell winner">
+                                        Falcon
+                                    </div>
+                                    <div class="cell loser">
+                                        Vitality
+                                    </div>
+                                    <div class="cell">
+                                        CSP LGBM v5.2
+                                    </div>
+                                    <div class="cell">
+                                        <div>
+                                            <span class="balance-int">11,203</span><span class="balance-float">.02</span>
+                                        </div>
+                                        <img src="images/balance_coin_24px.svg">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="cell">
+                                        7123
+                                    </div>
+                                    <div class="cell">
+                                        21.04.2025 18:23:23
+                                    </div>
+                                    <div class="cell">
+                                        <a href="" class="link-underline">Ссылка</a>
+                                    </div>
+                                    <div class="cell winner">
+                                        Falcon
+                                    </div>
+                                    <div class="cell loser">
+                                        Vitality
+                                    </div>
+                                    <div class="cell">
+                                        CSP LGBM v5.2
+                                    </div>
+                                    <div class="cell">
+                                        <div>
+                                            <span class="balance-int">11,203</span><span class="balance-float">.02</span>
+                                        </div>
+                                        <img src="images/balance_coin_24px.svg">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="cell">
+                                        7123
+                                    </div>
+                                    <div class="cell">
+                                        21.04.2025 18:23:23
+                                    </div>
+                                    <div class="cell">
+                                        <a href="" class="link-underline">Ссылка</a>
+                                    </div>
+                                    <div class="cell winner">
+                                        Falcon
+                                    </div>
+                                    <div class="cell loser">
+                                        Vitality
+                                    </div>
+                                    <div class="cell">
+                                        CSP LGBM v5.2
+                                    </div>
+                                    <div class="cell">
+                                        <div>
+                                            <span class="balance-int">11,203</span><span class="balance-float">.02</span>
+                                        </div>
+                                        <img src="images/balance_coin_24px.svg">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="cell">
+                                        7123
+                                    </div>
+                                    <div class="cell">
+                                        21.04.2025 18:23:23
+                                    </div>
+                                    <div class="cell">
+                                        <a href="" class="link-underline">Ссылка</a>
+                                    </div>
+                                    <div class="cell winner">
+                                        Falcon
+                                    </div>
+                                    <div class="cell loser">
+                                        Vitality
+                                    </div>
+                                    <div class="cell">
+                                        CSP LGBM v5.2
+                                    </div>
+                                    <div class="cell">
+                                        <div>
+                                            <span class="balance-int">11,203</span><span class="balance-float">.02</span>
+                                        </div>
+                                        <img src="images/balance_coin_24px.svg">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="cell">
+                                        7123
+                                    </div>
+                                    <div class="cell">
+                                        21.04.2025 18:23:23
+                                    </div>
+                                    <div class="cell">
+                                        <a href="" class="link-underline">Ссылка</a>
+                                    </div>
+                                    <div class="cell winner">
+                                        Falcon
+                                    </div>
+                                    <div class="cell loser">
+                                        Vitality
+                                    </div>
+                                    <div class="cell">
+                                        CSP LGBM v5.2
+                                    </div>
+                                    <div class="cell">
+                                        <div>
+                                            <span class="balance-int">11,203</span><span class="balance-float">.02</span>
+                                        </div>
+                                        <img src="images/balance_coin_24px.svg">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="cell">
+                                        7123
+                                    </div>
+                                    <div class="cell">
+                                        21.04.2025 18:23:23
+                                    </div>
+                                    <div class="cell">
+                                        <a href="" class="link-underline">Ссылка</a>
+                                    </div>
+                                    <div class="cell winner">
+                                        Falcon
+                                    </div>
+                                    <div class="cell loser">
+                                        Vitality
+                                    </div>
+                                    <div class="cell">
+                                        CSP LGBM v5.2
+                                    </div>
+                                    <div class="cell">
+                                        <div>
+                                            <span class="balance-int">11,203</span><span class="balance-float">.02</span>
+                                        </div>
+                                        <img src="images/balance_coin_24px.svg">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="cell">
+                                        7123
+                                    </div>
+                                    <div class="cell">
+                                        21.04.2025 18:23:23
+                                    </div>
+                                    <div class="cell">
+                                        <a href="" class="link-underline">Ссылка</a>
+                                    </div>
+                                    <div class="cell winner">
+                                        Falcon
+                                    </div>
+                                    <div class="cell loser">
+                                        Vitality
+                                    </div>
+                                    <div class="cell">
+                                        CSP LGBM v5.2
+                                    </div>
+                                    <div class="cell">
+                                        <div>
+                                            <span class="balance-int">11,203</span><span class="balance-float">.02</span>
+                                        </div>
+                                        <img src="images/balance_coin_24px.svg">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="cell">
+                                        7123
+                                    </div>
+                                    <div class="cell">
+                                        21.04.2025 18:23:23
+                                    </div>
+                                    <div class="cell">
+                                        <a href="" class="link-underline">Ссылка</a>
+                                    </div>
+                                    <div class="cell winner">
+                                        Falcon
+                                    </div>
+                                    <div class="cell loser">
+                                        Vitality
+                                    </div>
+                                    <div class="cell">
+                                        CSP LGBM v5.2
+                                    </div>
+                                    <div class="cell">
+                                        <div>
+                                            <span class="balance-int">11,203</span><span class="balance-float">.02</span>
+                                        </div>
+                                        <img src="images/balance_coin_24px.svg">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
