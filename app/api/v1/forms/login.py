@@ -1,17 +1,16 @@
 from fastapi import APIRouter, Request, Form, Response, Depends
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 from sqlalchemy.ext.asyncio import AsyncSession
 from sql_models import db_helper
 
-from pydantic import ValidationError
-from schemas.email import EmailCheck
-
-from cruds.user import is_email_unique, is_login_unique, auth_user
+from cruds.user import auth_user
 from schemas import UserLogin
 from utils import create_access_token
 from utils import templates
 from core import settings
+
+import json
 
 router = APIRouter()
 
@@ -42,24 +41,19 @@ async def login(
         )
 
     access_token = await create_access_token(
-        data={"sub": {
+        data={"sub": json.dumps({
                 "login": user.login,
                 "email": user.email,
-            }
+                "credits": user.credits,
+            })
         },
         private_key=settings.jwt.private,
         algorithm=settings.jwt.algorithm,
         )
     
-    template_response = templates.TemplateResponse(
-        request=request,
-        name="texts/succes.html",
-        context={
-            "text": "Авторизация успешно прошла!!"
-        },
-    )
+    response = HTMLResponse('<script>window.location.href = "/dashboard";</script>')
 
-    template_response.set_cookie(
+    response.set_cookie(
         key="access_token",
         value=access_token,
         httponly=True,  # Защита от XSS
@@ -67,4 +61,4 @@ async def login(
         secure=True  # Только HTTPS
     )
 
-    return template_response
+    return response

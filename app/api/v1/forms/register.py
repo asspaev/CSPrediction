@@ -13,6 +13,8 @@ from utils import create_access_token
 from utils import templates
 from core import settings
 
+import json
+
 router = APIRouter()
 
 @router.post("/register", response_class=HTMLResponse)
@@ -99,10 +101,11 @@ async def register(
     )
 
     access_token = await create_access_token(
-        data={"sub": {
-                "login": username,
-                "email": email,
-            }
+        data={"sub": json.dumps({
+                "login": user.login,
+                "email": user.email,
+                "credits": user.credits,
+            })
         },
         private_key=settings.jwt.private,
         algorithm=settings.jwt.algorithm,

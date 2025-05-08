@@ -1,0 +1,17 @@
+{% extends "dashboard.html" %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% include "header.html" %}
+
+{% block page %}
+    <div class="page-wrapper">
+        <div class="container">
+            <div class="page-holder">
+                <img class="loading-animation" src="{{ url_for('static', path='gifs/loading.gif') }}" alt="">
+            </div>
+        </div>
+    </div>
+{% endblock %}

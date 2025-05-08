@@ -10,6 +10,7 @@ from .deposit import router as deposit
 from .get_models import router as get_models
 from .predict import router as predict
 from .forms import router as forms_router
+from .logout import router as logout_router
 
 
 router = APIRouter()
@@ -42,4 +43,7 @@ router.include_router(
 router.include_router(
     forms_router,
     prefix=settings.api.version.forms
+)
+router.include_router(
+    logout_router,
 )
