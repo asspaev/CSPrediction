@@ -1,5 +1,5 @@
 from sqlalchemy.ext.asyncio import AsyncSession
-from models import User
+from sql_models.user import User
 from schemas import user as schemas_user
 from sqlalchemy import select
 from datetime import datetime
@@ -26,7 +26,8 @@ async def create_user(
         await session.commit()
         await session.refresh(user)
         return user
-    
+
+
 async def auth_user(
         session: AsyncSession,
         user_login: schemas_user.UserRegister,
@@ -42,3 +43,27 @@ async def auth_user(
             raise HTTPException(status_code=400, detail="Неверный пароль!")
     else:
         raise HTTPException(status_code=400, detail="Пользователя с таким email не существует")
+
+
+async def get_user_credits_by_email(
+    email: str, 
+    session: AsyncSession,
+) -> float:
+    stmt = select(User.credits).where(User.email == email)
+    result = await session.execute(stmt)
+    credits = result.scalar_one_or_none()
+    return credits if credits is not None else 0.0
+
+
+async def add_credits_by_email(email: str, amount: float, session: AsyncSession) -> None:
+    # Проверка существования пользователя и текущего баланса
+    stmt = select(User).where(User.email == email)
+    result = await session.execute(stmt)
+    user = result.scalar_one_or_none()
+
+    if user is None:
+        raise HTTPException(status_code=404, detail="Пользователь не найден")
+
+    # Обновление credits
+    user.credits += amount
+    await session.commit()
