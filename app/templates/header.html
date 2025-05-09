@@ -2,12 +2,12 @@
     <div class="container">
         <div class="header-holder">
             <div class="header-left-wrapper">
-                <a href="" class="text-logo">
+                <a href="{{ url_for('PAGE:DASHBOARD') }}" class="text-logo">
                     CSPrediction
                 </a>
             </div>
             <div class="header-center-wrapper">
-                <a href="" class="btn-header-menu{% if predict %} active{% endif %}">Предсказание</a>
+                <a href="{{ url_for('PAGE:PREDICT') }}" class="btn-header-menu{% if predict %} active{% endif %}">Предсказание</a>
                 <a href="" class="btn-header-menu{% if history_predict %} active{% endif %}">История предсказания</a>
                 <a href="" class="btn-header-menu{% if deposit %} active{% endif %}">Пополнить баланс</a>
                 <a href="" class="btn-header-menu{% if history_balance %} active{% endif %}">История транзакций</a>

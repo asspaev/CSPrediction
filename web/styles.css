@@ -397,6 +397,7 @@ html, body {
   border-radius: 999px;
   border: 1px solid var(--color-white);
   transition: all 0.3s ease;
+  color: var(--color-white);
 }
 
 .btn-white-stroke:hover {
@@ -849,4 +850,53 @@ html, body {
 
 .teams-preview {
   height: 152px;
+}
+
+.pop-ups-wrapper {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.pop-up {
+  background-color: var(--color-black-3);
+  border: 1px solid var(--color-black-4);
+  padding: 8px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-radius: 16px;
+  width: 220px;
+  transition: all 0.3s ease;
+}
+
+.pop-up:hover {
+  border: 1px solid var(--color-white);
+}
+
+.pop-up-header {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+}
+
+.pop-up-title {
+  width: 160px;
+}
+
+.pop-up-content {
+  color: var(--color-grey);
+}
+
+.btn-close {
+  color: var(--color-grey);
+  transition: all 0.3s ease;
+}
+
+.btn-close:hover {
+  color: var(--color-white);
 }
