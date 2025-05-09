@@ -63,13 +63,13 @@ input[type=number] {
 
 @font-face {
   font-family: "Actay";
-  src: url("fonts/Actay-Regular.otf");
+  src: url("./../fonts/Actay-Regular.otf") format("opentype");
   font-weight: 400;
 }
 
 @font-face {
   font-family: "Actay";
-  src: url("fonts/ActayWide-Bold.otf");
+  src: url("./../fonts/ActayWide-Bold.otf") format("opentype");
   font-weight: 700;
 }
 
@@ -287,6 +287,7 @@ html, body {
 .no-auth-wrapper .text-logo {
   font-weight: 700;
   font-size: 24px;
+  color: var(--color-white);
 }
 
 .no-auth-wrapper .form-holder {
@@ -303,6 +304,25 @@ html, body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.form > * {
+  margin-bottom: 16px;
+}
+.form > *:last-child {
+  margin-bottom: 0;
+}
+
+.form.hide-result-gap > *:nth-last-child(2) {
+  margin-bottom: 0;
+}
+
+#result:empty {
+  display: block;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
 .no-auth-wrapper .form-title {
@@ -384,14 +404,8 @@ html, body {
   color: var(--color-black-2);
 }
 
-.no-auth-wrapper .text-logo {
-  font-weight: 700;
-  font-size: 18px;
-  color: var(--color-blue);
-}
-
 .header-wrapper {
-  margin-top: 32px;
+  margin-top: 24px;
   margin-bottom: 24px;
 }
 
@@ -481,7 +495,7 @@ html, body {
   margin-right: 6px;
 }
 
-.balance-holder svg {
+.balance-holder img {
   margin-right: 6px;
 }
 
@@ -513,7 +527,7 @@ html, body {
   background-color: var(--color-black-2);
   border: 1px solid var(--color-black-3);
   border-radius: 16px;
-  height: 780px;
+  height: 800px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -527,7 +541,7 @@ html, body {
 .page-holder .form-holder {
   background-color: var(--color-black-3);
   border-radius: 16px;
-  padding: 24px 32px;
+  padding: 16px 32px;
   width: 700px;
 }
 
@@ -823,4 +837,16 @@ html, body {
 
 .btn-gold-solid:hover::before {
   opacity: 1;
+}
+
+.form-row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.teams-preview {
+  height: 152px;
 }

@@ -72,64 +72,30 @@
                     </div>
                     <div class="block predict">
                         <div class="teams-preview">
-                            <div class="team-card">
-                                <div class="image-team">
-                                    <img src="images/team_falcons.png">
-                                </div>
-                                <div class="team-name">
-                                    Falcons
-                                </div>
-                            </div>
-                            <div class="match-start-info">
-                                <div class="match-time">
-                                    17:30
-                                </div>
-                                <div class="match-date">
-                                    8 июня
-                                </div>
-                            </div>
-                            <div class="team-card">
-                                <div class="image-team">
-                                    <img src="images/team_vitality.png">
-                                </div>
-                                <div class="team-name">
-                                    Vitality
-                                </div>
-                            </div>
+                            <img class="loading-animation" src="gifs/loading.gif" alt="">
                         </div>
                         <div class="predict-holder">
-                            <div class="predict-title">
-                                Результат предсказания:
-                            </div>
-                            <div class="predict-row">
-                                <div class="predict-value">
-                                    Победитель
-                                </div>
-                                <div class="predict-value-current succes">
-                                    Falcons
-                                </div>
-                            </div>
-                            <div class="predict-row">
-                                <div class="predict-value">
-                                    Проигравший
-                                </div>
-                                <div class="predict-value-current wrong">
-                                    Vitality
-                                </div>
+                            <div class="text-empty">
+                                Тут будет предсказание на миллион...
                             </div>
                         </div>
                     </div>
                     <div class="block">
-                        <a href="" class="btn-blue-solid">
-                            Сделать новое предсказание
+                        <a href="" class="btn-blue-solid block">
+                            Предсказать
                         </a>
 
-                        <div class="input blocked">
-                            CSP LGBM v2
-                        </div>
-
-                        <div class="model-cost">
-                            Стоимость предсказания модели составляет <span class="color-gold">500 тубриков</span>
+                        <div class="dropdown-wrapper">
+                            <div class="dropdown-input-wrapper">
+                                <input type="text" placeholder="Модель" class="dropdown-input" onfocus="showDropdown()" oninput="filterOptions(this.value)">
+                                <img class="dropdown-icon" src="images/chevron_arrow_down_16px.svg">
+                            </div>
+                            <div class="dropdown-list" id="dropdownList">
+                                <div class="dropdown-option">CSP LGBM v2</div>
+                                <div class="dropdown-option">CSP LGBM v3</div>
+                                <div class="dropdown-option">CSP LR v7</div>
+                                <div class="dropdown-option">CSP XGBOOST v4</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -137,5 +103,6 @@
         </div>
     </div>
 
+    <script src="js/dropdownlist.js"></script>
 </body>
 </html>
