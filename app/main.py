@@ -18,9 +18,12 @@ from sql_models import (
 async def lifespan(fast_app: FastAPI):
     async with db_helper.engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
-    yield
-    print('dispose engine')
+
+    yield  # здесь запускается FastAPI
+
+    print("dispose engine")
     await db_helper.dispose()
+
 
 app = FastAPI(
     default_response_class=ORJSONResponse,

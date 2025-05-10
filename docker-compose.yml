@@ -8,3 +8,9 @@ services:
       MYSQL_PASSWORD: my_pass
     ports:
       - "3307:3306"
+
+  redis:
+    image: redis:7.2
+    ports:
+      - "6379:6379"
+    restart: unless-stopped

@@ -17,12 +17,14 @@ PATH_DATA = Path("data")
 
 with open(PATH_DATA / "headers.json", "r", encoding="utf-8") as f:
     headers = json.load(f)
-    cookies = {c.split('=')[0].strip(): c.split('=', 1)[1].strip() for c in headers["Cookie"].split('; ')}
+    cookies = {
+        c.split("=")[0].strip(): c.split("=", 1)[1].strip()
+        for c in headers["Cookie"].split("; ")
+    }
+
 
 class PredicatorConfig(BaseModel):
-    model_config = {
-        "arbitrary_types_allowed": True
-    }
+    model_config = {"arbitrary_types_allowed": True}
 
     mean_player: DataFrame = pd.read_csv(PATH_DATA / "mean_player.csv")
     path_dir_models: Path = Path("ml_models")
@@ -68,8 +70,15 @@ class ApiPrefix(BaseModel):
     prefix: str = "/api"
     version: ApiV1Prefix = ApiV1Prefix()
 
-class WebConfig(BaseSettings):
+
+class WebConfig(BaseModel):
     title: str = "CSPrediction"
+
+
+class CeleryConfig(BaseModel):
+    broker: str = "redis://localhost:6379/0"
+    backend: str = "redis://localhost:6379/0"
+
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
@@ -85,6 +94,7 @@ class Settings(BaseSettings):
     api: ApiPrefix = ApiPrefix()
     predict: PredicatorConfig = PredicatorConfig()
     web: WebConfig = WebConfig()
+    celery: CeleryConfig = CeleryConfig()
 
 
 settings = Settings()
