@@ -1,0 +1,51 @@
+{% extends "dashboard.html" %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+<div id="header_main">
+    {% block header %}
+        {% include "header.html" %}
+    {% endblock %}
+</div>
+
+{% block page %}
+    <div class="page-wrapper">
+        <div class="container">
+            <div class="page-holder">
+                <div class="form-holder" id="form_deposit">
+                    <div class="block">
+                        <div class="form-title">
+                            Пополнение баланса
+                        </div>
+                    </div>
+                    <div class="block" id="#result">
+                        <img class="loading-animation" src="{{ url_for('static', path='gifs/loading.gif') }}" alt="">
+                        <div class="block-row">
+                            <!-- <div class="input-icon-holder">
+                                <input type="number" placeholder="Пополнение в рублях">
+                                <img class="input-icon" src="{{ url_for('static', path='images/ruble_16px.svg') }}">
+                            </div>
+                            <img src="{{ url_for('static', path='images/changer_32px.svg') }}"> -->
+                            <div class="input-icon-holder">
+                                <input type="number" name="deposit" id="deposit" placeholder="Пополнение в тубриках">
+                                <img class="input-icon" src="{{ url_for('static', path='images/balance_coin_16px.svg') }}">
+                            </div>
+                        </div>
+                        <button 
+                            hx-post="{{ url_for('DEPOSIT') }}"
+                            hx-include="#deposit"
+                            hx-swap="innerHTML"
+                            hx-trigger="click"
+                            hx-indicator="#result"
+                            class="btn-gold-solid"
+                        >
+                            Пополнить баланс
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

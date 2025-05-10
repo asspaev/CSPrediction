@@ -30,8 +30,8 @@
                     Для использования функций сервиса <span class="color-blue">CSPrediction</span> войди в аккаунт
                 </div>
                 <form class="form" hx-post="{{ login_api }}" hx-target="#result" hx-swap="innerHTML">
-                    <input name="login" type="text" placeholder="Логин">
-                    <input name="password" type="password" placeholder="Пароль">
+                    <input name="login" type="text" placeholder="Логин" autocomplete="off">
+                    <input name="password" type="password" placeholder="Пароль" autocomplete="off">
                     <button type="submit" class="btn-blue-solid">Войти в сервис</button>
                     <div id="result"></div>
                 </form>

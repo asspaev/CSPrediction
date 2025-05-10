@@ -1,15 +1,15 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sql_models.user import User
 from schemas import user as schemas_user
-from sqlalchemy import select
+from sqlalchemy import select, update
 from datetime import datetime
 from utils import hash_string
 from fastapi import HTTPException
 
 
 async def create_user(
-        session: AsyncSession,
-        user_register: schemas_user.UserRegister,
+    session: AsyncSession,
+    user_register: schemas_user.UserRegister,
 ) -> User:
     user = await session.execute(
         select(User).filter_by(email=user_register.email)
@@ -30,8 +30,8 @@ async def create_user(
 
 
 async def auth_user(
-        session: AsyncSession,
-        user_login: schemas_user.UserRegister,
+    session: AsyncSession,
+    user_login: schemas_user.UserRegister,
 ) -> User:
     user = await session.execute(
         select(User).filter_by(login=user_login.login)
@@ -47,8 +47,8 @@ async def auth_user(
 
 
 async def get_user_credits_by_email(
-    email: str, 
     session: AsyncSession,
+    email: str, 
 ) -> float:
     stmt = select(User.credits).where(User.email == email)
     result = await session.execute(stmt)
@@ -56,7 +56,11 @@ async def get_user_credits_by_email(
     return credits if credits is not None else 0.0
 
 
-async def add_credits_by_email(email: str, amount: float, session: AsyncSession) -> None:
+async def add_credits_by_email(
+    session: AsyncSession,
+    email: str, 
+    amount: float, 
+) -> None:
     # Проверка существования пользователя и текущего баланса
     stmt = select(User).where(User.email == email)
     result = await session.execute(stmt)
@@ -69,15 +73,48 @@ async def add_credits_by_email(email: str, amount: float, session: AsyncSession)
     user.credits += amount
     await session.commit()
 
-async def is_email_unique(session: AsyncSession, email: str) -> bool:
+async def is_email_unique(
+    session: AsyncSession, 
+    email: str,
+) -> bool:
     result = await session.execute(
         select(User).where(User.email == email)
     )
     return result.scalar_one_or_none() is None
 
 
-async def is_login_unique(session: AsyncSession, login: str) -> bool:
+async def is_login_unique(
+    session: AsyncSession, 
+    login: str,
+) -> bool:
     result = await session.execute(
         select(User).where(User.login == login)
     )
     return result.scalar_one_or_none() is None
+
+
+async def update_user_credits_by_login(
+    session: AsyncSession,
+    login: str,
+    new_credits: float,
+) -> None:
+    await session.execute(
+        update(User)
+        .where(User.login == login)
+        .values(credits=new_credits)
+    )
+    await session.commit()
+
+async def get_user_id_by_login(
+    session: AsyncSession, 
+    login: str,
+) -> int:
+    result = await session.execute(
+        select(User.id).where(User.login == login)
+    )
+    user_id = result.scalar()
+    
+    if user_id is None:
+        raise HTTPException(status_code=404, detail="Пользователь не найден")
+
+    return user_id

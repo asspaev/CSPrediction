@@ -1,0 +1,121 @@
+{% extends "dashboard.html" %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+<div id="header_main">
+    {% block header %}
+        {% include "header.html" %}
+    {% endblock %}
+</div>
+
+{% block page %}
+    <div class="page-wrapper">
+        <div class="container">
+            <div class="page-holder">
+                <div class="form-holder">
+                    <div class="block">
+                        <div class="form-title">
+                            Предсказание
+                        </div>
+                        <div class="description">
+                            Выбери модель для предсказания
+                        </div>
+                        <input type="text" id="match_link" name="match_link" placeholder="Вставьте ссылку на матч" autocomplete="off">
+                    </div>
+                    <div class="block predict" id="form_predict">
+                        <img class="loading-animation" src="{{ url_for('static', path='gifs/loading.gif') }}" alt="">
+                        <div class="text-empty-loading">
+                            Диванные эксперты в сфере киберспорта подвергаются мощному анализу со стороны модели. Подождите, пока идёт анализ, это может занять некоторое время
+                        </div>
+                        <div class="teams-preview">
+                            <div class="team-card">
+                                <div class="image-team"></div>
+                                <div class="team-name">
+                                    XXX
+                                </div>
+                            </div>
+                            <div class="match-start-info">
+                                <div class="match-time">
+                                    XXX
+                                </div>
+                                <div class="match-date">
+                                    XXX
+                                </div>
+                            </div>
+                            <div class="team-card">
+                                <div class="image-team"></div>
+                                <div class="team-name">
+                                    XXX
+                                </div>
+                            </div>
+                        </div>
+                        <div class="predict-holder" id="predict_result">
+                            <img class="loading-animation" src="{{ url_for('static', path='gifs/loading.gif') }}" alt="">
+                            <div class="text-empty">
+                                Тут будет предсказание на миллион...
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block">
+                        <div id="button_predict-holder">
+                            <button
+                                hx-post="{{ url_for('PREDICT') }}"
+                                hx-include="#match_link, #model"
+                                hx-target="#form_predict"
+                                hx-swap="innerHTML"
+                                hx-trigger="click"
+                                hx-indicator="#form_predict"
+                                class="btn-blue-solid block"
+                            >
+                                Предсказать
+                            </button>
+                        </div>
+
+                        <div class="dropdown-wrapper">
+                            <div class="dropdown-input-wrapper">
+                                <input 
+                                    id="model" 
+                                    name="model" 
+                                    type="text" 
+                                    placeholder="Модель" 
+                                    class="dropdown-input" 
+                                    onfocus="showDropdown()" 
+                                    oninput="filterOptions(this.value)"
+                                    hx-post="{{ url_for('PRICE_MODEL') }}"
+                                    hx-include="#model"
+                                    hx-trigger="input changed delay:300ms"
+                                    hx-target="#model_cost"
+                                    hx-swap="innerHTML"
+                                >
+                                <img class="dropdown-icon" src="{{ url_for('static', path='images/chevron_arrow_down_16px.svg') }}">
+                            </div>
+                            <div class="dropdown-list" id="dropdownList">
+                                {% for model in models %}
+                                    <div class="dropdown-option">{{ model.name }} v{{ model.version }} ({{ model.price }})</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="model-cost" id="model_cost">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.querySelectorAll('.dropdown-option').forEach(option => {
+        option.addEventListener('click', function () {
+            const input = document.querySelector('#model');
+            input.value = this.textContent;
+
+            // Инициируем событие 'input' вручную для HTMX
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+        });
+    });
+    // Переинициализируй обработчики, если список динамически меняется
+    </script>
+{% endblock %}

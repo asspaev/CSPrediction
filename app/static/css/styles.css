@@ -590,6 +590,11 @@ button:disabled:hover::before {
   margin-bottom: 8px;
 }
 
+.image-team img {
+  width: 80px;
+  height: 80px;
+}
+
 .form-holder .teams-preview {
   display: flex;
   align-items: center;
@@ -891,7 +896,7 @@ button:disabled:hover::before {
 }
 
 .pop-up:hover {
-  border: 1px solid var(--color-white);
+  border: 1px solid var(--color-grey);
 }
 
 .pop-up-header {
@@ -928,4 +933,37 @@ button:disabled:hover::before {
 
 #predict_button {
   width: 100%;
+}
+
+#button_predict-holder {
+  width: 100%;
+}
+
+.loading-animation {
+  display: none;
+}
+
+.htmx-request .loading-animation {
+  display: block;
+}
+
+.htmx-request .teams-preview {
+  display: none;
+}
+
+.text-empty-loading {
+  color: var(--color-grey);
+  display: none;
+}
+
+.htmx-request .text-empty-loading {
+  display: block;
+}
+
+.htmx-request .predict-holder {
+  display: none;
+}
+
+#form_deposit {
+  width: 400px;
 }

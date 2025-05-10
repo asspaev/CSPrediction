@@ -1,0 +1,97 @@
+{% extends "dashboard.html" %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+<div id="header_main">
+    {% block header %}
+        {% include "header.html" %}
+    {% endblock %}
+</div>
+
+{% block page %}
+    {% if predictions %}
+    <div class="page-wrapper">
+        <div class="container">
+            <div class="page-holder">
+                <div class="table-page-holder">
+                    <div class="page-title">
+                        История предсказаний
+                    </div>
+                    <div class="page-content">
+                        <div class="table-holder">
+                            <div class="row title">
+                                <div class="cell title">
+                                    №
+                                </div>
+                                <div class="cell title">
+                                    Дата предсказания
+                                </div>
+                                <div class="cell title">
+                                    Ссылка на матч
+                                </div>
+                                <div class="cell title">
+                                    Победитель
+                                </div>
+                                <div class="cell title">
+                                    Проигравший
+                                </div>
+                                <div class="cell title">
+                                    Модель
+                                </div>
+                                <div class="cell title">
+                                    Цена предсказания
+                                </div>
+                            </div>
+                            <div class="table-content">
+                                {% for prediction in predictions %}
+                                <div class="row">
+                                    <div class="cell">
+                                        {{ prediction.id }}
+                                    </div>
+                                    <div class="cell">
+                                        {{ prediction.date }}
+                                    </div>
+                                    <div class="cell">
+                                        <a target="_blank" href="{{ prediction.link }}" class="link-underline">Ссылка</a>
+                                    </div>
+                                    <div class="cell winner">
+                                        {{ prediction.winner }}
+                                    </div>
+                                    <div class="cell loser">
+                                        {{ prediction.loser }}
+                                    </div>
+                                    <div class="cell">
+                                        {{ prediction.model }}
+                                    </div>
+                                    <div class="cell">
+                                        <div>
+                                            <span class="balance-int">{{ prediction.price_int }}</span><span class="balance-float">{{ prediction.price_float }}</span>
+                                        </div>
+                                        <img src="{{ url_for('static', path='images/balance_coin_24px.svg') }}">
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="page-wrapper">
+        <div class="container">
+            <div class="page-holder table">
+                <div class="page-title">
+                    История предсказаний
+                </div>
+                <div class="page-content empty">
+                    Вы пока ничего не предсказывали...
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}

@@ -30,10 +30,10 @@
                     Заполни форму, чтобы создать аккаунт и начать пользоваться чудесным сервисом <span class="color-blue">CSPrediction</span>
                 </div>
                 <form class="form" hx-post="{{ register_api }}" hx-target="#result" hx-swap="innerHTML">
-                    <input name="username" type="text" placeholder="Логин">
-                    <input name="email" type="email" placeholder="Почта">
-                    <input name="password" type="password" placeholder="Пароль (мин. 8 символов)">
-                    <input name="password_confirm" type="password" placeholder="Подтверждение пароля">
+                    <input name="username" type="text" placeholder="Логин" autocomplete="off">
+                    <input name="email" type="email" placeholder="Почта" autocomplete="off">
+                    <input name="password" type="password" placeholder="Пароль (мин. 8 символов)" autocomplete="off">
+                    <input name="password_confirm" type="password" placeholder="Подтверждение пароля" autocomplete="off">
                     <button type="submit" class="btn-blue-solid">Создать аккаунт</button>
                     <div id="result"></div>
                 </form>

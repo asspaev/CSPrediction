@@ -22,4 +22,3 @@ class Deposit(IntIdPkMixin, Base):
     created_at: Mapped[TIMESTAMP] = mapped_column(TIMESTAMP)
     
     user = relationship("User", back_populates="deposits")
-    conversions = relationship("Conversion", back_populates="deposit")

@@ -25,3 +25,16 @@ async def get_model_by_id(
     result = await session.execute(stmt)
     model = result.scalar_one_or_none()
     return model
+
+async def get_model_by_name_and_version(
+    name: str, 
+    version: str, 
+    session: AsyncSession,
+) -> Model | None:
+    stmt = select(Model).where(
+        Model.name == name,
+        Model.version == version
+    )
+    result = await session.execute(stmt)
+    model = result.scalar_one_or_none()
+    return model

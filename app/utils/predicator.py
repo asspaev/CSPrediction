@@ -1,16 +1,19 @@
 from sklearn.pipeline import Pipeline
 
 from pathlib import Path
-from tqdm.auto import tqdm
+from tqdm import tqdm
 
 from curl_cffi import requests as curl_requests
 import pandas as pd
 
 from pathlib import Path
-from tqdm.notebook import tqdm
 from lxml import html
 
-import utils.preprocessed_data as pre_data
+import warnings
+from curl_cffi.requests.exceptions import RequestException
+warnings.simplefilter(action='ignore', category=FutureWarning)
+
+import utils.preprocess_scrapped_data as utils
 
 
 class Predicator:
@@ -86,10 +89,10 @@ class Predicator:
         tree = html.fromstring(response.content)  # build html tree
 
         # Parse players
-        players_id, players_name, df_match = pre_data.parse_players(tree)
+        players_id, players_name, df_match = utils.parse_players(tree)
 
         # Get players info
-        df_players = pre_data.create_df_players()
+        df_players = utils.create_df_players()
         pbar = tqdm(total=len(players_id), desc="Scrapping players info", unit="player")
         for i in range(1, 11):
             
@@ -101,7 +104,7 @@ class Predicator:
             tree = html.fromstring(response.content)  # build html tree
 
             # Parse player info
-            player_stats = pre_data.parse_player_stats(tree)
+            player_stats = utils.parse_player_stats(tree)
 
             # Build DataFrame player
             df_player = pd.DataFrame([{"player_link": players_name[i-1].lower(), **player_stats}])
@@ -146,10 +149,10 @@ class Predicator:
             df_players, df_match = self._scrapp_full_match(match_link)
 
         # Preprocess players
-        df_players_preprocessed = pre_data.preprocess_players(df_players, self.mean_player)
+        df_players_preprocessed = utils.preprocess_players(df_players, self.mean_player)
 
         # Merge data
-        df_merged = pre_data.merge_data(df_match, df_players_preprocessed)
+        df_merged = utils.merge_data(df_match, df_players_preprocessed)
 
         # Drop string columns
         df_merged = df_merged.drop(columns=df_merged.select_dtypes(include='object').columns)

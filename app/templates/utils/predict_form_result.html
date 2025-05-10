@@ -1,0 +1,53 @@
+<img class="loading-animation" src="{{ url_for('static', path='gifs/loading.gif') }}" alt="">
+<div class="text-empty-loading">
+    Диванные эксперты в сфере киберспорта подвергаются мощному анализу со стороны модели. Подождите, пока идёт анализ, это может занять некоторое время
+</div>
+<div class="teams-preview">
+    <div class="team-card">
+        <div class="image-team">
+            <img src="{{ img_team_1 }}">
+        </div>
+        <div class="team-name">
+            {{ team_name_1 }}
+        </div>
+    </div>
+    <div class="match-start-info">
+        <div class="match-time">
+            {{ match_time }}
+        </div>
+        <div class="match-date">
+            {{ match_date }}
+        </div>
+    </div>
+    <div class="team-card">
+        <div class="image-team">
+            <img src="{{ img_team_2 }}">
+        </div>
+        <div class="team-name">
+            {{ team_name_2 }}
+        </div>
+    </div>
+</div>
+<div class="predict-holder">
+    <div class="predict-holder">
+        <div class="predict-title">
+            Результат предсказания:
+        </div>
+        <div class="predict-row">
+            <div class="predict-value">
+                Победитель
+            </div>
+            <div class="predict-value-current succes">
+                {{ team_winner }}
+            </div>
+        </div>
+        <div class="predict-row">
+            <div class="predict-value">
+                Проигравший
+            </div>
+            <div class="predict-value-current wrong">
+                {{ team_loser }}
+            </div>
+        </div>
+    </div>
+</div>

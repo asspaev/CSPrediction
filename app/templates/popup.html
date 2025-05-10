@@ -1,36 +1,47 @@
-<div class="pop-up show">
-    <div class="pop-up-header">
-        <div class="pop-up-title">
-            {{ pop_up_title }}
+<div 
+    hx-swap-oob="beforeend:#pop-ups-wrapper" 
+>
+    <div class="pop-up show">
+        <div class="pop-up-header">
+            <div class="pop-up-title">
+                {% if span == 'loser' %}
+                    <span class="loser">{{ pop_up_title }}</span>
+                {% elif span == 'winner' %}
+                    <span class="winner">{{ pop_up_title }}</span>
+                {% else %}
+                    {{ pop_up_title }}
+                {% endif %}
+                
+            </div>
+            <button class="btn-close">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15.7409 6.3103C16.2847 5.86667 17.0872 5.89891 17.5941 6.40585C18.1011 6.91279 18.1333 7.71533 17.6897 8.25915L17.5941 8.36371L13.9579 12L17.5941 15.6363L17.6897 15.7409C18.1333 16.2847 18.1011 17.0872 17.5941 17.5941C17.0872 18.1011 16.2847 18.1333 15.7409 17.6897L15.6363 17.5941L12 13.9579L8.36371 17.5941C7.82301 18.1349 6.94656 18.1349 6.40585 17.5941C5.86514 17.0534 5.86514 16.177 6.40585 15.6363L10.0421 12L6.40585 8.36371L6.3103 8.25915C5.86667 7.71533 5.89891 6.91279 6.40585 6.40585C6.91279 5.89891 7.71533 5.86667 8.25915 6.3103L8.36371 6.40585L12 10.0421L15.6363 6.40585L15.7409 6.3103Z" fill="currentColor"/>
+                </svg>
+            </button>
         </div>
-        <button class="btn-close">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path d="M15.7409 6.3103C16.2847 5.86667 17.0872 5.89891 17.5941 6.40585C18.1011 6.91279 18.1333 7.71533 17.6897 8.25915L17.5941 8.36371L13.9579 12L17.5941 15.6363L17.6897 15.7409C18.1333 16.2847 18.1011 17.0872 17.5941 17.5941C17.0872 18.1011 16.2847 18.1333 15.7409 17.6897L15.6363 17.5941L12 13.9579L8.36371 17.5941C7.82301 18.1349 6.94656 18.1349 6.40585 17.5941C5.86514 17.0534 5.86514 16.177 6.40585 15.6363L10.0421 12L6.40585 8.36371L6.3103 8.25915C5.86667 7.71533 5.89891 6.91279 6.40585 6.40585C6.91279 5.89891 7.71533 5.86667 8.25915 6.3103L8.36371 6.40585L12 10.0421L15.6363 6.40585L15.7409 6.3103Z" fill="currentColor"/>
-            </svg>
-        </button>
-    </div>
-    <div class="pop-up-content">
-        {{ pop_up_message }}
-    </div>
-    <script>
-    (function(){
-        // получаем именно этот .pop-up
-        const popup = document.currentScript.parentElement;
+        <div class="pop-up-content">
+            {{ pop_up_message }}
+        </div>
+        <script>
+        (function(){
+            // получаем именно этот .pop-up
+            const popup = document.currentScript.parentElement;
 
-        // 1) кнопка закрытия
-        const btn = popup.querySelector('.btn-close');
-        btn.addEventListener('click', ()=> {
-            popup.classList.remove('show');
-            setTimeout(()=> popup.remove(), 500);
-        });
-
-        // 2) авто-закрытие через 10 секунд
-        {% if auto_close %}
-            setTimeout(()=>{
+            // 1) кнопка закрытия
+            const btn = popup.querySelector('.btn-close');
+            btn.addEventListener('click', ()=> {
                 popup.classList.remove('show');
                 setTimeout(()=> popup.remove(), 500);
-            }, 10000);
-        {% endif %}
-    })();
-    </script>
+            });
+
+            // 2) авто-закрытие через 10 секунд
+            {% if auto_close %}
+                setTimeout(()=>{
+                    popup.classList.remove('show');
+                    setTimeout(()=> popup.remove(), 500);
+                }, 10000);
+            {% endif %}
+        })();
+        </script>
+    </div>
 </div>
