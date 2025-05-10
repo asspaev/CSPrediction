@@ -500,6 +500,14 @@ button:disabled:hover::before {
   margin-right: 6px;
 }
 
+.balance-int {
+  transition: all 0.3s ease;
+}
+
+.balance-holder:hover .balance-int {
+  color: var(--color-gold);
+}
+
 .balance-holder img {
   margin-right: 6px;
 }

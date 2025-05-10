@@ -25,7 +25,7 @@
                             <img src="{{ url_for('static', path='images/user_avatar_24px.svg') }}" alt="Аватар пользователя">
                         </div>
                     </div>
-                    <a href="" class="balance-holder">
+                    <a href="{{ url_for('PAGE:DEPOSIT') }}" class="balance-holder">
                         <img src="{{ url_for('static', path='images/balance_coin_24px.svg') }}" alt="">
                         <span class="balance-int">{{ balance_int }}</span><span class="balance-float">{{ balance_float }}</span>
                     </a>
