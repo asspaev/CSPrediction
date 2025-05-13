@@ -5,6 +5,7 @@ from core import settings
 from .auth import router as auth_router
 from .pages import router as pages_router
 from .favicon import router as favicon_router
+from .index import router as index_router
 
 
 router = APIRouter()
@@ -17,4 +18,7 @@ router.include_router(
 )
 router.include_router(
     favicon_router,
+)
+router.include_router(
+    index_router,
 )
