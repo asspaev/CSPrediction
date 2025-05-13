@@ -41,6 +41,8 @@
 
 ## ⚙️ Запуск проекта
 
+Запуск осуществлять из `app`
+
 ### 1. 📦 Поднять Docker Compose
 
 ```bash
@@ -50,13 +52,13 @@ docker compose up -d
 ### 2. 🧵 Запустить Celery
 
 ```bash
-celery -A app/celery_app worker --pool=solo --loglevel=info
+celery -A celery_app worker --pool=solo --loglevel=info
 ```
 
 ### 3. 🚀 Запустить FastAPI-приложение
 
 ```bash
-python app/main.py
+python main.py
 ```
 
 ## 🧠 Описание ML-модели
