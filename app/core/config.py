@@ -4,8 +4,6 @@ from pydantic import BaseModel, MySQLDsn
 import pandas as pd
 from pandas import DataFrame
 
-from fastapi.security import OAuth2PasswordBearer
-
 import json
 from pathlib import Path
 

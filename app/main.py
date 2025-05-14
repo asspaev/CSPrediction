@@ -13,6 +13,12 @@ from sql_models import (
     Base,
 )
 
+from utils import configure_logging
+import logging
+
+configure_logging(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
+
 
 @asynccontextmanager
 async def lifespan(fast_app: FastAPI):
@@ -21,7 +27,7 @@ async def lifespan(fast_app: FastAPI):
 
     yield  # здесь запускается FastAPI
 
-    print("dispose engine")
+    logger.info("Dispose engine complete")
     await db_helper.dispose()
 
 
@@ -43,6 +49,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 if __name__ == "__main__":
+    logger.info("Start app")
     uvicorn.run(
         "main:app",
         host=settings.run.host,
