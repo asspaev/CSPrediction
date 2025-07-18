@@ -28,6 +28,9 @@ import jwt
 
 from tasks import task_predict
 
+import logging
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
@@ -39,8 +42,12 @@ async def predict(
     match_link: str = Form(...),
     model: str = Form(...),
 ):
+
+    logger.info("Валидация данных предсказания")
+
     # Валидация на пустые данные
     if len(match_link) == 0:
+        logger.warning("Ошибка! Не указана ссылка на матч!")
         content = templates.get_template("popup.html").render(
             pop_up_title="Ошибка!",
             pop_up_message="Не указана ссылка на матч!",
@@ -51,6 +58,7 @@ async def predict(
         response.headers["HX-Reswap"] = "none"
         return response
     if len(model) == 0:
+        logger.warning("Ошибка! Не выбрана модель!")
         content = templates.get_template("popup.html").render(
             pop_up_title="Ошибка!",
             pop_up_message="Не выбрана модель!",
@@ -60,6 +68,10 @@ async def predict(
         response = HTMLResponse(content=content, status_code=200)
         response.headers["HX-Reswap"] = "none"
         return response
+
+    logger.info("Валидация данных предсказания завершена")
+
+    logger.info("Валидация модели")
 
     # Валидация модели
     pattern = r"(?P<name>.+?)\s+v(?P<version>[\d\.]+)\s+\((?P<price>[\d\.]+)\)"
@@ -72,6 +84,7 @@ async def predict(
             session=session,
         )
         if not model_valid:
+            logger.warning("Ошибка! Выбранная модель не найдена!")
             content = templates.get_template("popup.html").render(
                 pop_up_title="Ошибка!",
                 pop_up_message="Выбранная модель не найдена!",
@@ -82,6 +95,7 @@ async def predict(
             response.headers["HX-Reswap"] = "none"
             return response
     else:
+        logger.warning("Ошибка! Выбранная модель не найдена!")
         content = templates.get_template("popup.html").render(
             pop_up_title="Ошибка!",
             pop_up_message="Выбранная модель не найдена!",
@@ -91,6 +105,10 @@ async def predict(
         response = HTMLResponse(content=content, status_code=200)
         response.headers["HX-Reswap"] = "none"
         return response
+
+    logger.info("Валидация модели завершена")
+
+    logger.info("Валидация баланса")
 
     # Валидация баланса
     access_token = request.cookies.get("access_token")
@@ -105,6 +123,7 @@ async def predict(
     )
 
     if user_balance < model_valid.price_per_prediction:
+        logger.warning("Ошибка! Не хватает тубриков!")
         content = templates.get_template("popup.html").render(
             pop_up_title="Ошибка!",
             pop_up_message="Вам не хватает тубриков!",
@@ -115,10 +134,15 @@ async def predict(
         response.headers["HX-Reswap"] = "none"
         return response
 
+    logger.info("Валидация баланса завершена")
+
+    logger.info("Валидация матча")
+
     # Валидация матча
     pattern = r"^https://www\.hltv\.org/matches/(\d+)/([\w-]+)$"
     match = re.match(pattern, match_link)
     if not match:
+        logger.warning("Ошибка! Указана некорректная ссылка на матч!")
         content = templates.get_template("popup.html").render(
             pop_up_title="Ошибка!",
             pop_up_message="Указана некорректная ссылка на матч!",
@@ -129,6 +153,10 @@ async def predict(
         response.headers["HX-Reswap"] = "none"
         return response
 
+    logger.info("Валидация матча завершена")
+
+    logger.info("Получение информации о матче")
+
     # Получение информации о матче
     try:
         response = curl_requests.get(
@@ -136,6 +164,7 @@ async def predict(
             impersonate="chrome",
         )
     except:
+        logger.warning("Ошибка! Не получилось найти матч!")
         content = templates.get_template("popup.html").render(
             pop_up_title="Ошибка!",
             pop_up_message="Не получилось найти матч, повторите попытку позже!",
@@ -145,6 +174,11 @@ async def predict(
         response = HTMLResponse(content=content, status_code=200)
         response.headers["HX-Reswap"] = "none"
         return response
+
+    logger.info("Получение информации о матче завершено")
+
+    logger.info("Парсинг информации о матче")
+
     tree = html.fromstring(response.content)
     img_src_team_1 = tree.xpath(
         "//div[@class='team'][1]//img[contains(@class, 'logo')][1]/@src"
@@ -171,6 +205,16 @@ async def predict(
         "//div[@class='timeAndEvent'][1]//div[@class='date'][1]/text()"
     )[0]
 
+    logger.info(
+        "Парсинг информации о матче завершен, team_name_1: %r, team_name_2: %r, match_time: %r, match_date: %r",
+        team_name_1,
+        team_name_2,
+        match_time,
+        match_date,
+    )
+
+    logger.info("Отправление таска на предсказание")
+
     # Predict
     path_model = f"ml_models/{model_valid.file_path}"
     predict = task_predict.delay(
@@ -178,6 +222,8 @@ async def predict(
         match_link=match_link,
     )
     predict = await run_in_threadpool(predict.get, 300)
+
+    logger.info("Ответ предсказания модели: %r", predict)
 
     if predict == 0:
         team_winner = team_name_1
@@ -187,6 +233,8 @@ async def predict(
         team_loser = team_name_1
 
     user_id = await get_user_id_by_login(session, cookie_dict["login"])
+
+    logger.info("Сохранение предсказания в БД")
 
     prediction_id = await create_prediction(
         session=session,
@@ -198,12 +246,18 @@ async def predict(
         credits_used=model_valid.price_per_prediction,
     )
 
+    logger.info("Сохранение предсказания в БД завершено")
+
+    logger.info("Сохранение расхода в БД")
+
     await create_spend(
         session=session,
         user_id=user_id,
         prediction_id=prediction_id,
         amount=model_valid.price_per_prediction,
     )
+
+    logger.info("Сохранение расхода в БД завершено")
 
     user_balance = await get_user_credits_by_email(
         email=cookie_dict["email"],
